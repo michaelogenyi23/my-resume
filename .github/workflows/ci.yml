@@ -1,0 +1,20 @@
+name: Resume ci build #name of workflow
+
+#when someone pushs or pulls anything trigger the code automatically
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  #what you are building on docker
+  build:
+
+    runs-on: ubuntu-latest #this is in an ubuntu container in docker
+
+    steps:
+    - uses: actions/checkout@v4 #its going to clone the repository
+    - name: Build the Docker image #build the docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
